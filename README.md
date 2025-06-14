@@ -1,22 +1,25 @@
-# Task Management Application
+# Task Management App
 
-A full-stack task management application with user authentication, task CRUD operations, and Excel export functionality. Built with a React.js frontend, a Node.js backend for authentication, and a Django REST Framework backend for task management, using an SQLite database.
+A comprehensive full-stack application designed for efficient task tracking, featuring secure authentication, complete task CRUD functionality, and seamless Excel export. The frontend is built using React.js with Tailwind CSS, while user authentication is handled through a Node.js backend. Task management is powered by Django REST Framework and SQLite.
 
-## Features
+---
 
-- **User Authentication**: Register and login using a Node.js backend, synced with Django.
-- **Task Management**:
-  - Create, update, and delete tasks with fields: Title, Description, Effort (in days), and Due Date.
-  - View tasks specific to the logged-in user.
-  - Input validation (non-empty title, valid date).
-- **Excel Export**: Download tasks as an Excel file via the Django backend.
-- **Responsive UI**: Clean and attractive interface built with React.js and Tailwind CSS.
+## Key Features
 
-## Project Structure
+* **Secure Authentication**: User registration and login via Node.js, integrated with Django backend.
+* **Task Operations**:
+
+  * Add, edit, and delete tasks with fields like title, description, estimated effort (in days), and due date.
+  * Each user accesses only their personal tasks.
+  * Form-level validations for empty fields and valid dates.
+* **Excel Export**: Download task data as an Excel file through Django.
+---
+
+## Folder Structure
 
 ```
 task-management-app/
-├── frontend/               # React.js frontend
+├── frontend/               # React frontend
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── Login.jsx
@@ -24,11 +27,11 @@ task-management-app/
 │   │   │   └── Tasks.jsx
 │   │   ├── App.jsx
 │   │   └── index.css
-├── backend1/               # Node.js authentication API
+├── backend1/               # Node.js backend for authentication
 │   ├── index.js
 │   ├── users.db
 │   └── package.json
-├── backend2/               # Django REST Framework API
+├── backend2/               # Django backend for task APIs
 │   ├── manage.py
 │   ├── tasks/
 │   │   ├── models.py
@@ -41,67 +44,59 @@ task-management-app/
 └── README.md
 ```
 
-## Prerequisites
+---
 
-- Node.js (v18 or higher)
-- Python (v3.8 or higher)
-- SQLite (included with Python)
-- npm (comes with Node.js)
-- pip (comes with Python)
-- Git (for cloning the repository)
+# Requirements
 
-## Setup Instructions
+* Node.js (v18 or newer)
+* Python (v3.8+)
+* SQLite (pre-installed with Python)
+* npm (included with Node.js)
+* pip (Python package installer)
+* Git (for cloning the repository)
 
-### 1. Clone the Repository
+---
+
+## Setup Guide
+
+### Clone the Repository
 
 ```bash
 git clone <repository-url>
 cd task-management-app
 ```
 
-### 2. Backend 1: Node.js Authentication API
-
-Navigate to the Node.js backend:
+### Set Up Node.js Authentication Server
 
 ```bash
 cd backend1
-```
-
-Install dependencies:
-
-```bash
 npm install
 ```
 
-Create a `.env` file in the `backend1` directory with the following content:
+Create a `.env` file inside the `backend1` directory and add:
 
 ```
 JWT_SECRET=your-secret-key
 ```
 
-Replace `your-secret-key` with a secure random string.
+Replace `your-secret-key` with a secure value of your choice.
 
-Start the Node.js server:
+Start the server:
 
 ```bash
 npm start
 ```
 
-The server runs on `http://localhost:3000`.
+Runs at: `http://localhost:3000`
 
-### 3. Backend 2: Django REST Framework API
+---
 
-Navigate to the Django backend:
+### Set Up Django Task Management API
 
 ```bash
 cd ../backend2
-```
-
-Create and activate a virtual environment:
-
-```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 ```
 
 Install dependencies:
@@ -110,88 +105,69 @@ Install dependencies:
 pip install django djangorestframework django-cors-headers openpyxl python-decouple
 ```
 
-Apply migrations to set up the SQLite database:
+Run migrations:
 
 ```bash
 python manage.py migrate
 ```
 
-Create a superuser (optional, for admin access):
+(Optional) Create admin account:
 
 ```bash
 python manage.py createsuperuser
 ```
 
-Start the Django server:
+Start Django server:
 
 ```bash
 python manage.py runserver
 ```
 
-The server runs on `http://localhost:8000`.
+Runs at: `http://localhost:8000`
 
-### 4. Frontend: React.js Application
+---
 
-Navigate to the frontend:
+# Start the React Frontend
 
 ```bash
 cd ../frontend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Start the React development server:
-
-```bash
 npm start
 ```
 
-The frontend runs on `http://localhost:3001`.
+Runs at: `http://localhost:3001`
 
-## Usage Instructions
+---
 
-1. **Start the Servers**:
-   - Ensure both `backend1` (Node.js) and `backend2` (Django) servers are running.
-   - Start the frontend React application.
+## 🧑‍💻 How to Use
 
-2. **Access the Application**:
-   - Open `http://localhost:3001` in your browser.
+1. Ensure all three servers (React, Node.js, Django) are up and running.
+2. Visit `http://localhost:3001` to access the frontend.
+3. Go to `/register` to create a new account.
+4. Login through `/login` using your credentials.
+5. Navigate to `/tasks` to:
 
-3. **Register**:
-   - Navigate to `/register` to create a new account.
-   - Provide a username and password.
+   * Add new tasks
+   * Edit or delete existing tasks
+   * Export your task list as an Excel file
+6. Use the **Logout** button to end the session.
 
-4. **Login**:
-   - Navigate to `/login` and enter your credentials.
-   - Upon successful login, you’ll be redirected to the `/tasks` page.
+---
 
-5. **Manage Tasks**:
-   - **Create**: Fill out the task form with Title, Description, Effort (days), and Due Date.
-   - **View**: See all your tasks in a list.
-   - **Update**: Click "Edit" on a task to modify its details.
-   - **Delete**: Click "Delete" to remove a task.
-   - **Export**: Click "Export to Excel" to download your tasks as an Excel file.
+##  API Overview
 
-6. **Logout**:
-   - Click the "Logout" button on the tasks page to return to the login screen.
+### Node.js Auth Server (Port 3000)
 
-## API Endpoints
+* `POST /api/register` – Register new users
+* `POST /api/login` – Authenticate and receive a token
 
-### Node.js Backend (`http://localhost:3000`)
+### Django Task API Server (Port 8000)
 
-- `POST /api/register`: Register a new user.
-- `POST /api/login`: Authenticate a user and return a token.
+* `POST /api/register/` – Sync registration
+* `POST /api/login/` – Login and receive token
+* `GET /api/tasks/` – Fetch user's task list
+* `POST /api/tasks/` – Add a new task
+* `PUT /api/tasks/:id/` – Update an existing task
+* `DELETE /api/tasks/:id/` – Remove a task
+* `GET /api/tasks/export/` – Download tasks in Excel format
 
-### Django Backend (`http://localhost:8000`)
-
-- `POST /api/register/`: Sync user registration with Django.
-- `POST /api/login/`: Authenticate and return a token.
-- `GET /api/tasks/`: List user’s tasks.
-- `POST /api/tasks/`: Create a new task.
-- `PUT /api/tasks/:id/`: Update a task.
-- `DELETE /api/tasks/:id/`: Delete a task.
-- `GET /api/tasks/export/`: Export tasks to Excel.
